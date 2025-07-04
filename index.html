@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - A’LAIN Profektus AI Assistant</title>
+    
+    <!-- Google Fonts - More reliable loading method -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+      :root {
+          --profektus-blue: #008d99;
+          --profektus-blue-light: #00a2b3;
+          --profektus-blue-dark: #005c66;
+          --profektus-blue-pastel: #d9f2f5;
+          --neutral-beige: #F9F9F7;
+          --neutral-gray-light: #E3E5E5;
+          --neutral-gray-dark: #555555;
+          --text-body: #333333;
+          --absolute-white: #FFFFFF;
+          --danger-red: #e74c3c;
+          --font-family-primary: 'Inter', 'Roboto', 'Open Sans', sans-serif;
+          --font-family-title: 'Montserrat', var(--font-family-primary);
+      }
+
+      body, html {
+          height: 100%;
+          margin: 0;
+          font-family: var(--font-family-primary);
+          color: var(--text-body);
+          background: linear-gradient(135deg, var(--neutral-beige) 0%, var(--profektus-blue-pastel) 100%);
+      }
+
+      .login-container {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          height: 100%;
+          padding: 1rem;
+          box-sizing: border-box;
+      }
+
+      .login-box {
+          background-color: var(--absolute-white);
+          padding: 3rem;
+          border-radius: 12px;
+          box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+          width: 100%;
+          max-width: 420px;
+          text-align: center;
+          border-top: 5px solid var(--profektus-blue);
+      }
+
+      .login-header {
+          margin-bottom: 2rem;
+          text-align: center;
+      }
+
+      #login-logo {
+          width: 90px;
+          height: auto;
+          margin-bottom: 1rem;
+      }
+
+      .login-header h1 {
+          font-family: var(--font-family-title);
+          font-size: 2.25rem;
+          color: var(--profektus-blue-dark);
+          margin: 0;
+          font-weight: 700;
+          letter-spacing: -1px;
+      }
+
+      .login-header .login-brand {
+          font-family: var(--font-family-primary);
+          font-size: 1rem;
+          color: var(--neutral-gray-dark);
+          margin: 0.25rem 0 0 0;
+          font-weight: 400;
+      }
+
+      .login-subtitle {
+          font-size: 1rem;
+          color: var(--text-body);
+          margin-top: 0;
+          margin-bottom: 2rem;
+      }
+
+      #login-form {
+          display: flex;
+          flex-direction: column;
+          gap: 1.25rem;
+      }
+
+      .input-group {
+          position: relative;
+      }
+
+      .input-group i {
+          position: absolute;
+          left: 15px;
+          top: 50%;
+          transform: translateY(-50%);
+          color: var(--neutral-gray-dark);
+          transition: color 0.2s ease-in-out;
+      }
+
+      .input-group input {
+          width: 100%;
+          padding: 0.9rem 1rem 0.9rem 2.75rem;
+          border: 1px solid var(--neutral-gray-light);
+          border-radius: 5px;
+          font-size: 1rem;
+          font-family: var(--font-family-primary);
+          box-sizing: border-box;
+          transition: all 0.2s ease-in-out;
+      }
+
+      .input-group input:focus {
+          outline: none;
+          border-color: var(--profektus-blue);
+          box-shadow: 0 0 0 4px rgba(0, 141, 153, 0.1);
+      }
+
+      .input-group input:focus + i {
+          color: var(--profektus-blue);
+      }
+
+      #error-message {
+          color: var(--danger-red);
+          font-size: 0.875rem;
+          font-weight: 500;
+          min-height: 1.25rem;
+          margin: -0.5rem 0;
+      }
+
+      #login-btn {
+          background-color: var(--profektus-blue);
+          color: var(--absolute-white);
+          border: none;
+          padding: 0.9rem 1.5rem;
+          border-radius: 5px;
+          font-size: 1rem;
+          font-family: var(--font-family-primary);
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.2s ease-in-out;
+          margin-top: 0.5rem;
+          position: relative;
+          overflow: hidden;
+      }
+
+      #login-btn:hover:not(:disabled) {
+          background-color: var(--profektus-blue-dark);
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0, 141, 153, 0.25);
+      }
+
+      #login-btn:disabled {
+          background-color: var(--profektus-blue-light);
+          opacity: 0.8;
+          cursor: wait;
+      }
+
+      #login-btn:disabled::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+          animation: loading-shine 1.5s infinite;
+      }
+
+      @keyframes loading-shine {
+          0% { left: -100%; }
+          50% { left: 100%; }
+          100% { left: 100%; }
+      }
+
+      @media (max-width: 480px) {
+          .login-box {
+              padding: 2rem 1.5rem;
+          }
+          .login-header h1 {
+              font-size: 1.75rem;
+          }
+          .login-header .login-brand {
+              font-size: 0.9rem;
+          }
+      }
+    </style>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🤖</text></svg>">
+<script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://esm.sh/@google/genai@^1.8.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-header">
+                <img id="login-logo" src="https://i.imgur.com/H3Bl5Vs.png" alt="Profektus Logo">
+                <h1>A’LAIN</h1>
+                <p class="login-brand">Profektus AI Assistant</p>
+            </div>
+            <p class="login-subtitle">Bienvenido. Por favor, inicia sesión.</p>
+            <form id="login-form">
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="email" placeholder="Correo Electrónico" required>
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Contraseña" required>
+                </div>
+                <p id="error-message"></p>
+                <button type="submit" id="login-btn">Ingresar</button>
+            </form>
+        </div>
+    </div>
+    
+    <script type="module" src="index.tsx"></script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
